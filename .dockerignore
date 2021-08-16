@@ -1,0 +1,9 @@
+**/node_modules
+**/documents
+
+npm-debug.log
+.gitignore
+.txt
+**/dist
+.vscode
+*.md

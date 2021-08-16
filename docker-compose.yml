@@ -1,0 +1,35 @@
+version: '3'
+
+services:
+  db:
+    container_name: postgres
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_DB: parking
+      POSTGRES_USER: thaivivath_admin
+      POSTGRES_PASSWORD: password
+    volumes:
+      - ./script/init-database.sh:/docker-entrypoint-initdb.d/init-database.sh
+    ports:
+      - 5432:5432
+    # networks:
+    #   - thaivivath-network
+
+  api:
+    container_name: parking-lot-api
+    image: parking-lot-api
+    restart: always
+    build:
+      context: .
+      # target: development
+      dockerfile: ./dockerfile
+    env_file:
+      - ./env/development.env
+    command: npm run start:dev
+    ports:
+      - 3000:5000
+    # networks:
+    #   - thaivivath-network
+# networks:
+#   thaivivath-network:
